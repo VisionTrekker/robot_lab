@@ -41,7 +41,7 @@ UNITREE_ALIENGO_CFG = ArticulationCfg(
         ),
     ),
     init_state=ArticulationCfg.InitialStateCfg(
-        pos=(0.0, 0.0, 0.55),
+        pos=(0.0, 0.0, 0.50),
         joint_pos={
             ".*L_hip_joint": 0.1,
             ".*R_hip_joint": -0.1,
@@ -53,11 +53,29 @@ UNITREE_ALIENGO_CFG = ArticulationCfg(
     ),
     soft_joint_pos_limit_factor=0.9,
     actuators={
-        "legs": DCMotorCfg(
-            joint_names_expr=[".*_joint"],
+        "hip": DCMotorCfg(
+            joint_names_expr=[".*_hip_joint"],
+            effort_limit=44.0,
+            saturation_effort=44.0,
+            velocity_limit=20.0,
+            stiffness=40.0,
+            damping=2.0,
+            friction=0.0,
+        ),
+        "thigh": DCMotorCfg(
+            joint_names_expr=[".*_thigh_joint"],
+            effort_limit=44.0,
+            saturation_effort=44.0,
+            velocity_limit=20.0,
+            stiffness=40.0,
+            damping=2.0,
+            friction=0.0,
+        ),
+        "calf": DCMotorCfg(
+            joint_names_expr=[".*_calf_joint"],
             effort_limit=55.0,
             saturation_effort=55.0,
-            velocity_limit=20.0,
+            velocity_limit=15.0,
             stiffness=40.0,
             damping=2.0,
             friction=0.0,
