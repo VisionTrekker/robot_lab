@@ -442,7 +442,7 @@ class RewardsCfg:
         },
     )
 
-    wheel_vel_penalty = RewTerm(
+    wheel_vel_penalty = RewTerm(  # 惩罚四轮在空中或者静立时的关节速度：command > 0.1 & vel > 0.5时，惩罚空中轮子的关节速度； command <= 0.1 || vel <= 0.5时，即静立时，惩罚四轮的关节速度
         func=mdp.wheel_vel_penalty,
         weight=0.0,
         params={

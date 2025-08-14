@@ -29,6 +29,6 @@ def joint_pos_rel_without_wheel(
 def phase(env: ManagerBasedRLEnv, cycle_time: float) -> torch.Tensor:
     if not hasattr(env, "episode_length_buf") or env.episode_length_buf is None:
         env.episode_length_buf = torch.zeros(env.num_envs, device=env.device, dtype=torch.long)
-    phase = env.episode_length_buf[:, None] * env.step_dt / cycle_time
-    phase_tensor = torch.cat([torch.sin(2 * torch.pi * phase), torch.cos(2 * torch.pi * phase)], dim=-1)
+    phase = env.episode_length_buf[:, None] * env.step_dt / cycle_time  # 每个env在当前episode的时间s / cycle_time = 相位比例
+    phase_tensor = torch.cat([torch.sin(2 * torch.pi * phase), torch.cos(2 * torch.pi * phase)], dim=-1)  # 相位比例 -> 正弦余弦值
     return phase_tensor

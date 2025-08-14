@@ -25,7 +25,13 @@ from robot_lab.assets.utils.usd_converter import (  # noqa: F401
 
 UNITREE_ALIENGO_CFG = ArticulationCfg(
     spawn=sim_utils.UsdFileCfg(
-        usd_path=f"{ISAACLAB_ASSETS_DATA_DIR}/Robots/Unitree/Aliengo/aliengo.usd",
+        func=spawn_from_lazy_usd,
+        usd_path=urdf_to_usd(  # type: ignore
+            file_path=f"{ISAACLAB_ASSETS_DATA_DIR}/Robots/unitree/aliengo_description/urdf/aliengo.urdf",
+            output_usd_path=f"{ISAACLAB_ASSETS_DATA_DIR}/Robots/unitree/aliengo_description/usd/aliengo.usd",
+            merge_joints=False,
+            fix_base=False,
+        ),
         activate_contact_sensors=True,
         rigid_props=sim_utils.RigidBodyPropertiesCfg(
             disable_gravity=False,
@@ -43,10 +49,10 @@ UNITREE_ALIENGO_CFG = ArticulationCfg(
     init_state=ArticulationCfg.InitialStateCfg(
         pos=(0.0, 0.0, 0.50),
         joint_pos={
-            ".*L_hip_joint": 0.1,
-            ".*R_hip_joint": -0.1,
+            ".*L_hip_joint": 0.0,
+            ".*R_hip_joint": -0.0,
             "F[L,R]_thigh_joint": 0.8,
-            "R[L,R]_thigh_joint": 1.0,
+            "R[L,R]_thigh_joint": 0.8,
             ".*_calf_joint": -1.5,
         },
         joint_vel={".*": 0.0},
